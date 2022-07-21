@@ -1,0 +1,10 @@
+query HomeData {
+  movies(limit:5,
+    		 sort:DESC,
+    		 orderBy:"popularity") {
+    title
+    popularity
+    posterPath
+    genres
+  }
+}
