@@ -4,40 +4,34 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
+import com.podium.technicalchallenge.R
 import com.podium.technicalchallenge.screens.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import com.podium.technicalchallenge.screens.home.HomeViewModel.GetHomeDataResult
-import com.podium.technicalchallenge.screens.home.HomeViewModel.GetHomeDataResult.Loading
-import com.podium.technicalchallenge.screens.home.HomeViewModel.GetHomeDataResult.OnSuccess
-import com.podium.technicalchallenge.screens.home.HomeViewModel.GetHomeDataResult.Error
 
 @AndroidEntryPoint
-class HomeActivity: ComponentActivity() {
+class HomeActivity : ComponentActivity() {
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-
-                }
-            }
+            HomeScreen()
         }
     }
 
@@ -45,13 +39,5 @@ class HomeActivity: ComponentActivity() {
         lifecycleScope.launch {
             viewModel.queryForHomeData()
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-
     }
 }
