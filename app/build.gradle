@@ -102,5 +102,5 @@ dependencies {
 }
 
 apollo {
-    packageName.set("com.podium.technicalchallenge")
+    packageName.set("com.ejooj.moviestar")
 }
