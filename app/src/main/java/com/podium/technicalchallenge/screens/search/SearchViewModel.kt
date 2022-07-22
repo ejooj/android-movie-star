@@ -8,10 +8,7 @@ import com.podium.technicalchallenge.SearchQuery
 import com.podium.technicalchallenge.screens.home.HomeViewModel
 import com.podium.technicalchallenge.screens.search.usecases.GetSearchData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,7 +26,7 @@ class SearchViewModel @Inject constructor(
                 GetSearchDataResult.OnSuccess(it)
             }.catch<GetSearchDataResult> {
                 emit(GetSearchDataResult.OnError(GetSearchDataResult.Error.UNKNOWN))
-            }.collect {
+            }.cancellable().collect {
                 _searchData.postValue(it)
             }
     }

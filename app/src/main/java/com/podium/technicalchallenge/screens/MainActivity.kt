@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -22,12 +23,16 @@ import com.podium.technicalchallenge.screens.search.SearchScreen
 import com.podium.technicalchallenge.screens.search.SearchViewModel
 import com.podium.technicalchallenge.screens.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val homeViewModel: HomeViewModel by viewModels()
     private val searchViewModel: SearchViewModel by viewModels()
+
+    private var searchJob : Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +53,12 @@ class MainActivity : ComponentActivity() {
                             arguments = listOf(navArgument("genre") { type = NavType.StringType })
                         ) {
                             val arg = it.arguments?.getString("genre")!!
-                            fetchSearchData(arg)
-                            SearchScreen(searchState, navController, arg)
+                            LaunchedEffect(key1 = arg) {
+                                fetchSearchData(arg)
+                            }
+                            SearchScreen(searchState, navController, arg) { genre, search ->
+                                fetchSearchData(genre, search)
+                            }
                         }
                     }
                 }
@@ -63,9 +72,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun fetchSearchData(genre: String) {
-        lifecycleScope.launch {
-            searchViewModel.querySearch(0, genre, "")
+    private fun fetchSearchData(genre: String, search: String = "") {
+        if(searchJob?.isActive ?: false) {
+            searchJob?.cancel()
+        }
+        searchJob = lifecycleScope.launch {
+            searchViewModel.querySearch(0, genre, search)
         }
     }
 }

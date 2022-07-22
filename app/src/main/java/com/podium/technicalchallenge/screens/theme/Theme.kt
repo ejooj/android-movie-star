@@ -1,6 +1,7 @@
 package com.podium.technicalchallenge.screens.theme
 
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -21,3 +22,12 @@ fun MyApplicationTheme(
         colors = ColorPalette
     )
 }
+
+@Composable
+fun MyAppTextFieldColors() = TextFieldDefaults.textFieldColors(
+    textColor = Color.White,
+    disabledTextColor = Color.White,
+    cursorColor = Color.White,
+    focusedLabelColor = Color.White,
+    unfocusedLabelColor = Color.White
+)
