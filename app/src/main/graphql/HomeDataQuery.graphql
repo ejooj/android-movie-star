@@ -2,6 +2,7 @@ query HomeData {
   movies(limit:5,
     		 sort:DESC,
     		 orderBy:"popularity") {
+    id
     title
     popularity
     posterPath

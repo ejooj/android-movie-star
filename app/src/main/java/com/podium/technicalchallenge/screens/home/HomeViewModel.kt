@@ -19,7 +19,6 @@ class HomeViewModel @Inject constructor(
 
     suspend fun queryForHomeData() {
         getHomeData()
-            .filter { it != null }
             .transform {
                 it?.let { emit(it) }
             }.map {
