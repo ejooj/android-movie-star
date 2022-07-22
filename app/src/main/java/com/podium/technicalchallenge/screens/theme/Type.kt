@@ -28,4 +28,22 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.15.sp
     ),
+    h1 = TextStyle(
+        fontFamily = Montserrat,
+        fontSize = 34.sp,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 36.sp
+    ),
+    h2 = TextStyle(
+        fontFamily = Montserrat,
+        fontSize = 28.sp,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 32.sp
+    ),
+    h3 = TextStyle(
+        fontFamily = Montserrat,
+        fontSize = 26.sp,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 28.sp
+    ),
 )

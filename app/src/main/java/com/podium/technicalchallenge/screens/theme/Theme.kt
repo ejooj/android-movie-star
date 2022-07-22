@@ -8,8 +8,7 @@ import androidx.compose.ui.graphics.Color
 private val ColorPalette = lightColors(
     primary = Color(0xFF4169e1),
     primaryVariant = Color(0xFF4188FD),
-    secondary = Color(0xFF03DAC5),
-    background = Color(0xFFE3ECEB)
+    secondary = Color(0xFF03DAC5)
 )
 
 @Composable
