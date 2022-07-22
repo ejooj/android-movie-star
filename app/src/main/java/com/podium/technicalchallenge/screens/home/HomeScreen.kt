@@ -17,11 +17,13 @@ fun HomeScreen(homeData: GetHomeDataResult, navController: NavController) {
             .statusBarsPadding()
     ) {
         StarTopBar()
-        TopMoviesList(homeData)
+        TopMoviesList(homeData) {
+            navController.navigate("details/$it")
+        }
         when (homeData) {
             is GetHomeDataResult.OnSuccess -> {
                 GenresList(genres = homeData.value.genres) {
-                    navController.navigate("search/$it") {
+                    navController.navigate("search?genre=$it") {
                         popUpTo("home")
                     }
                 }

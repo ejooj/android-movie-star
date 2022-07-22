@@ -1,0 +1,16 @@
+query Detail($id: Int!) {
+  movie(id:$id) {
+    id
+    title,
+    posterPath,
+    cast {
+      name,
+      character
+    },
+    voteAverage,
+    director {
+      name
+    },
+    overview
+  }
+}

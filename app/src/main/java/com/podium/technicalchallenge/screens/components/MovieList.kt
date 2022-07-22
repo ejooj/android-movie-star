@@ -32,7 +32,7 @@ import com.podium.technicalchallenge.screens.search.SearchViewModel
 import com.valentinilk.shimmer.shimmer
 
 @Composable
-fun TopMoviesList(homeData: HomeViewModel.GetHomeDataResult) {
+fun TopMoviesList(homeData: HomeViewModel.GetHomeDataResult, onMovieClick: (Int) -> Unit = {}) {
     Column(
         modifier = Modifier.padding(vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(18.dp)
@@ -47,7 +47,7 @@ fun TopMoviesList(homeData: HomeViewModel.GetHomeDataResult) {
                     val movies = homeData.value.movies
                     if (movies != null) {
                         items(movies) {
-                            MovieCard(poster = it?.posterPath, movieId = it?.id)
+                            MovieCard(poster = it?.posterPath, movieId = it?.id, onMovieClick = onMovieClick)
                         }
                     }
                 }
@@ -62,7 +62,7 @@ fun TopMoviesList(homeData: HomeViewModel.GetHomeDataResult) {
 }
 
 @Composable
-fun MoviesList(searchData: SearchViewModel.GetSearchDataResult, genre: String) {
+fun MoviesList(searchData: SearchViewModel.GetSearchDataResult, genre: String, onMovieClick: (Int) -> Unit = {}) {
     Column(
         modifier = Modifier.padding(vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(18.dp)
@@ -79,7 +79,7 @@ fun MoviesList(searchData: SearchViewModel.GetSearchDataResult, genre: String) {
                     val movies = searchData.value.movies
                     if (movies != null) {
                         items(movies) {
-                            MovieCard(poster = it?.posterPath, movieId = it?.id)
+                            MovieCard(poster = it?.posterPath, movieId = it?.id, onMovieClick = onMovieClick)
                         }
                     }
                 }
@@ -100,6 +100,9 @@ fun GenresList(genres: List<String>, onClick: (String) -> Unit) {
         contentPadding = PaddingValues(start = 12.dp, end = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        item {
+            GenreCard(genre = "All", onClick = { onClick("") })
+        }
         items(genres) { item ->
             GenreCard(genre = item, onClick = { onClick(item) })
         }
@@ -138,8 +141,9 @@ fun ListHeader(text: String, icon: ImageVector) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MovieCard(modifier: Modifier = Modifier, movieId: Int? = null, poster: String? = null) {
+fun MovieCard(modifier: Modifier = Modifier, movieId: Int? = null, poster: String? = null, onMovieClick: (Int) -> Unit = {}) {
     Card(
         modifier = modifier
             .size(
@@ -147,6 +151,7 @@ fun MovieCard(modifier: Modifier = Modifier, movieId: Int? = null, poster: Strin
                 height = 250.dp
             ),
         shape = RoundedCornerShape(20.dp),
+        onClick = { movieId?.let(onMovieClick) },
         elevation = 4.dp
     ) {
         Box {

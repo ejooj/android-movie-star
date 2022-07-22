@@ -30,6 +30,8 @@ fun SearchScreen(
             searchText = it
             onSearch(queryGenre, it)
         }
-        MoviesList(searchState, queryGenre)
+        MoviesList(searchState, queryGenre) {
+            navController.navigate("details/$it")
+        }
     }
 }
