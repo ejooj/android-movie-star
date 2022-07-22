@@ -7,4 +7,5 @@ query HomeData {
     posterPath
     genres
   }
+  genres
 }
